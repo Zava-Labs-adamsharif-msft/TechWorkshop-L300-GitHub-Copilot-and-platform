@@ -149,5 +149,5 @@ desktop.ini
 .azure/
 
 # Bicep compiled files
-*.json
+infra/**/*.json
 !infra/abbreviations.json

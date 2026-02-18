@@ -7,8 +7,8 @@ param location string = resourceGroup().location
 @description('Tags for the resource')
 param tags object = {}
 
-@description('The resource ID of the Log Analytics workspace')
-param logAnalyticsWorkspaceId string
+@description('The resource ID of the Application Insights instance')
+param applicationInsightsId string
 
 // Storage account for AI Hub
 resource storageAccount 'Microsoft.Storage/storageAccounts@2023-01-01' = {
@@ -54,7 +54,7 @@ resource aiHub 'Microsoft.MachineLearningServices/workspaces@2024-04-01' = {
     friendlyName: name
     storageAccount: storageAccount.id
     keyVault: keyVault.id
-    applicationInsights: logAnalyticsWorkspaceId
+    applicationInsights: applicationInsightsId
     publicNetworkAccess: 'Enabled'
   }
   kind: 'Hub'

@@ -98,7 +98,7 @@ module aiHub './modules/aiHub.bicep' = {
     name: '${abbrs.cognitiveServicesAccounts}hub-${resourceToken}'
     location: location
     tags: tags
-    logAnalyticsWorkspaceId: logAnalytics.outputs.id
+    applicationInsightsId: appInsights.outputs.id
   }
 }
 
