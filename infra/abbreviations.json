@@ -1,8 +1,0 @@
-{
-  "containerRegistryRegistries": "acr",
-  "webServerFarms": "plan",
-  "webSitesAppService": "app",
-  "insightsComponents": "appi",
-  "operationalInsightsWorkspaces": "log",
-  "cognitiveServicesAccounts": "ai"
-}
