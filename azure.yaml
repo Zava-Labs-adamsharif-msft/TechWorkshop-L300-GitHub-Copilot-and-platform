@@ -1,0 +1,33 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/Azure/azure-dev/main/schemas/v1.0/azure.yaml.json
+
+name: zavastorefrontapp
+metadata:
+  template: zavastorefrontapp@0.0.1-beta
+
+services:
+  web:
+    project: ./src
+    language: csharp
+    host: appservice
+    docker:
+      path: ./Dockerfile
+      context: .
+
+hooks:
+  postprovision:
+    windows:
+      shell: pwsh
+      run: |
+        $acrName = azd env get-values --output json | ConvertFrom-Json | Select-Object -ExpandProperty AZURE_CONTAINER_REGISTRY_NAME
+        $imageName = "zavastorefrontapp:latest"
+        Write-Host "Building and pushing container image to ACR..."
+        az acr build --registry $acrName --image $imageName --file ./Dockerfile .
+        azd env set SERVICE_WEB_IMAGE_NAME "$acrName.azurecr.io/$imageName"
+    posix:
+      shell: sh
+      run: |
+        acrName=$(azd env get-values --output json | jq -r .AZURE_CONTAINER_REGISTRY_NAME)
+        imageName="zavastorefrontapp:latest"
+        echo "Building and pushing container image to ACR..."
+        az acr build --registry $acrName --image $imageName --file ./Dockerfile .
+        azd env set SERVICE_WEB_IMAGE_NAME "$acrName.azurecr.io/$imageName"
