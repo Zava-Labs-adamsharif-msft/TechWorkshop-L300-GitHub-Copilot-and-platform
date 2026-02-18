@@ -144,3 +144,10 @@ desktop.ini
 !/.gitattributes
 !/.gitignore
 .DS_Store
+
+# Azure Developer CLI
+.azure/
+
+# Bicep compiled files
+*.json
+!infra/abbreviations.json
